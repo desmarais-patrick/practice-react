@@ -1,0 +1,32 @@
+Design
+
+Components:
+
+- Text box (name)
+- Checkbox (human?)
+- Date (dob)
+- Slider (excitement)
+- Custom radio input with pictures (city)
+- Submit button (submit)
+- Render count (render)
+
+Behaviour:
+
+- Home screen with Sign up button that navigates to sign up form
+
+- Sign up screen:
+    - Required name: "Your name is required to sign up"
+    - Date of birth is within 130 years before today: "Are you really X years old?"
+    - Date of birth: show age on blur
+    - onChange information on slider: 0-2 "Welcome!"; 3-6 "Welcome ${name} 😉"; 7-9 "Welcome ${name}, 🤩!"; 10 "Welcome ${name} 🥳"
+    - Warning for preferred city: "Please can you share your preferred city, so we can personalize your environment?"
+    - Submit button is disabled pending validation, pending submission
+
+- Confirmation screen with return button that navigates to home screen
+  in a signed up state
+    - City image (first if not specific) as avatar
+    - "Welcome ${name}!" (with excitement state)
+
+- Home screen with city image as avatar + name.
+  Signup button for testing
+

@@ -1,0 +1,172 @@
+========================
+Tests
+========================
+
+------------------------
+Test cases
+------------------------
+
+1.1. Sign up
+
+Pre-conditions: API server and web server have started up.
+
+1. Open home page in browser
+1. Navigate to sign up page using sign up button
+1. Fill form inputs (see value sets below) and submit
+1. Correct form inputs and re-submit, if necessary
+1. Navigate to home page with new avatar
+
+1.2. Re-sign up
+
+Pre-conditions: execute test case 1.1 with set A
+
+1. Navigate to sign up page using sign up button
+1. Notice the information next to the fields
+1. Change your name and select a new city
+1. Submit
+1. Notice the change in the avatar
+
+1.3. Repeat with new input values
+
+Repeat test case 1.1 with different input values (see values sets below),
+after refreshing your page in the browser.
+
+
+------------------------
+Behaviour checks
+------------------------
+
+- Submit button cannot be interacted with pending validation and submission
+- Set A; show age number on blur of the date of birth control
+- Set C; warnings prevent first submission, but allows submission after that.
+- Entered name and selected city is the new home avatar
+- Information changes based on excitement value: 0-2 "Welcome!"; 3-6 "Welcome ${name} 😉"; 7-9 "Welcome ${name}, 🤩!"; 10 "Welcome ${name} 🥳"
+
+
+------------------------
+Browsers to check
+------------------------
+
+Check if any error shows up in the console, or any behaviour problem occurs,
+in the following browsers:
+
+- Chrome latest
+- Safari latest
+- Firefox latest
+
+
+------------------------
+Field input values sets
+------------------------
+
+Set A
+
+Name: Patrick
+Human: Yes
+Date of birth: 1990/01/01
+Excitement: Full
+City: Montreal
+
+
+Set B
+
+Name: [untouched]
+Human: [untouched]
+Date of birth: [untouched]
+Excitement: [untouched]
+City: [untouched]
+
+
+Set C
+
+Name: 12345 12345 12345 12
+Human: [untouched]
+Date of birth: [untouched]
+Excitement: [untouched]
+City: [untouched]
+
+
+Set D
+
+Name: P
+Human: [untouched]
+Date of birth: [untouched]
+Excitement: [untouched]
+City: [untouched]
+
+
+Set E
+
+Name: P
+Human: [untouched]
+Date of birth: 2100/01/01
+Excitement: [untouched]
+City: [untouched]
+
+
+Set F
+
+Name: P
+Human: [untouched]
+Date of birth: 1850/01/01
+Excitement: [untouched]
+City: [untouched]
+
+
+Set G
+
+Name: P
+Human: [untouched]
+Date of birth: 1990/01/01
+Excitement: Middle
+City: [untouched]
+
+
+Set H
+
+Name: P
+Human: [untouched]
+Date of birth: 1990/01/01
+Excitement: Middle
+City: All
+
+
+Set I
+
+Name: P
+Human: [untouched]
+Date of birth: 1990/01/01
+Excitement: Middle
+City: Toronto
+
+------------------------
+Validation checks
+------------------------
+
+Set A: Pass
+
+Set B: Unable to submit
+// Browser prevents submission for name.
+
+Set C: Warnings and then pass with maximum name length
+// City: "Please can you share your preferred city, so we can personalize your environment?"
+
+Set D: Warnings and then pass with minimum name length
+// City: "Please can you share your preferred city, so we can personalize your environment?"
+
+Set E: Warnings and then pass
+// Date of birth: Are you really -X years old?
+// City: "Please can you share your preferred city, so we can personalize your environment?"
+
+Set F: Warnings and then pass
+// Date of birth: Are you really 130+ years old?
+// City: "Please can you share your preferred city, so we can personalize your environment?"
+
+Set G: Warnings and then pass
+// Date of birth: Y years old
+// Excitement: Welcome P!
+// City: "Please can you share your preferred city, so we can personalize your environment?"
+
+Set H: Pass (default avatar picture)
+
+Set I: Pass (toronto avatar picture)
