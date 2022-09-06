@@ -8,12 +8,18 @@ const server = express();
 server.use(express.static("dist"));
 
 server.get("/", (req, res) => {
-    const initialMarkup = ReactDOMServer.renderToString(<App />);
+  const initialMarkup = ReactDOMServer.renderToString(<App />);
 
-    res.send(`
-    <html>
+  res.send(`
+    <!DOCTYPE html>
+    <html lang="en">
       <head>
-        <title>Sample React App</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Sign up | React controlled form</title>
+        <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
+        <link rel="stylesheet" href="/styles/index.css">
       </head>
       <body>
         <div id="app">${initialMarkup}</div>
@@ -23,4 +29,5 @@ server.get("/", (req, res) => {
   `)
 });
 
-server.listen(8080, () => console.log("Server is running..."));
+const port = 8080;
+server.listen(port, () => console.log(`Server is running on ${port}...`));

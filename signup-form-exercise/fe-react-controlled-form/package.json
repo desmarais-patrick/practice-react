@@ -1,12 +1,14 @@
 {
-  "name": "fe-react-uncontrolled-form",
+  "name": "fe-react-controlled-form",
   "version": "1.0.0",
-  "description": "Based on the design of _fe-vanillajs-form_, this front-end application attempts to re-create its features using React uncontrolled components.",
+  "description": "Based on the design of _fe-vanillajs-form_, this front-end application attempts to re-create its features using React controlled components.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:server": "nodemon --exec babel-node src/server/server.js --ignore dist/",
-    "dev:bundler": "webpack -w --mode=development"
+    "dev:bundler": "npm run cleanup && npm run copyStatic && webpack -w --mode=development",
+    "cleanup": "rm -rf dist/ && mkdir dist/",
+    "copyStatic": "cp -R images dist/ && cp -R styles dist/"
   },
   "author": "",
   "license": "ISC",
