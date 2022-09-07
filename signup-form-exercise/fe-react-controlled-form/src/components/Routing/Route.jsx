@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 
-const Route = ({ path, pageComponent, pageProps }) => {
-    let initialPath = "/";
-    if (typeof window !== "undefined") {
-        initialPath = window.location.pathname;
-    }
+const Route = ({ path, pageComponent, pageProps, defaultAppPath }) => {
+    const initialPath = (typeof window === "undefined") ? defaultAppPath : window.location.pathname;
     const [currentPath, setCurrentPath] = useState(initialPath);
     useEffect(() => {
         const onLocationChange = () => {
@@ -19,7 +16,7 @@ const Route = ({ path, pageComponent, pageProps }) => {
     }, []);
 
     pageProps.isDisplayed = (currentPath === path);
-    return  pageComponent(pageProps);
+    return pageComponent(pageProps);
 };
 
 export default Route;

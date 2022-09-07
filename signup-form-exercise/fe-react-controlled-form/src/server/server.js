@@ -7,8 +7,11 @@ import App from "../components/app";
 const server = express();
 server.use(express.static("dist"));
 
-server.get("/", (req, res) => {
-  const initialMarkup = ReactDOMServer.renderToString(<App />);
+server.get("/", generateApp);
+server.get("/SignUp", generateApp);
+
+function generateApp(req, res) {
+  const initialMarkup = ReactDOMServer.renderToString(<App startPage={req.route.path} />);
 
   res.send(`
     <!DOCTYPE html>
@@ -26,8 +29,8 @@ server.get("/", (req, res) => {
         <script src="/main.js"></script>
       </body>
     </html>
-  `)
-});
+  `);
+}
 
 const port = 8080;
 server.listen(port, () => console.log(`Server is running on ${port}...`));
