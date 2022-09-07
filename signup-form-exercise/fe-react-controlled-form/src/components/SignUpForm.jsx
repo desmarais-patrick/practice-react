@@ -2,8 +2,9 @@ import React, { useState } from "react";
 
 import CheckboxField from "./FormInputs/CheckboxField.jsx";
 import DateAgeField from "./FormInputs/DateAgeField.jsx";
-import WelcomeSliderField from "./FormInputs/WelcomeSliderField.jsx";
+import PreferredCityField from "./FormInputs/PreferredCityField.jsx";
 import TextField from "./FormInputs/TextField.jsx";
+import WelcomeSliderField from "./FormInputs/WelcomeSliderField.jsx";
 
 const SignUpForm = (props) => {
     let defaultAge = new Date();
@@ -44,6 +45,13 @@ const SignUpForm = (props) => {
     function onExcitementValueChange(newValue) {
         setExcitement({
             ...excitement,
+            value: newValue,
+        });
+    }
+
+    function onCityValueChange(newValue) {
+        setCity({
+            ...city,
             value: newValue,
         });
     }
@@ -89,57 +97,11 @@ const SignUpForm = (props) => {
                 {excitement.feedback && <p className="feedback">{excitement.feedback}</p>}
             </div>
             <div className="form-field form-field-image-selector">
-                <label htmlFor="city">Preferred city:</label>
-                <div className="form-field-image-selector-list">
-                    <div className="form-field-image-selector-item">
-                        <label>
-                            <img src="assets/matt-wang-dBp9dbQCh4Q-unsplash.jpg"
-                                title="View of downtown Vancouver from West Bay" />
-                            Vancouver
-                            <div>
-                                <input
-                                    name="city"
-                                    type="radio"
-                                    value="Vancouver" />
-                            </div>
-                        </label>
-                    </div>
-                    <div className="form-field-image-selector-item">
-                        <label>
-                            <img src="assets/maarten-van-den-heuvel-JlATOM0Jp94-unsplash.jpg"
-                                title="View of downtown Toronto from the Harbourfront" />
-                            Toronto
-                            <div>
-                                <input
-                                    name="city"
-                                    type="radio"
-                                    value="Toronto" />
-                            </div>
-                        </label>
-                    </div>
-                    <div className="form-field-image-selector-item">
-                        <label>
-                            <img src="assets/jackie-hutchinson-JJYzJXbwB20-unsplash.jpg"
-                                title="View of downtown Montreal from Mont-Royal" />
-                            Montreal
-                            <div>
-                                <input
-                                    name="city"
-                                    type="radio"
-                                    value="Montreal" />
-                            </div>
-                        </label>
-                    </div>
-                </div>
-                <div className="form-field-image-selector-item-other">
-                    <label>
-                        <input
-                            name="city"
-                            type="radio"
-                            value="All" />
-                        I like all those cities
-                    </label>
-                </div>
+                <PreferredCityField
+                    name="city"
+                    label="Preferred city: "
+                    onValueChange={onCityValueChange}
+                />
                 {city.feedback && <p className="feedback">{city.feedback}</p>}
             </div>
             <div className="form-field form-field-submit">
