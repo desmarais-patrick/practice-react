@@ -1,0 +1,107 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+    align-items: center;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    margin-top: 50px;
+
+    padding: 2rem;
+    border: 1px solid darkgrey;
+    border-radius: 4px;
+}
+
+h1 {
+    margin: 0 0 1rem;
+}
+
+/* Home */
+
+.user-badge {
+    display: flex;
+    line-height: 3rem;
+    margin: 0 0 1rem;
+}
+
+.user-badge-img {
+    object-fit: cover;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1.5rem;
+}
+
+.user-badge-txt {
+    padding: 0 1rem;
+    font-size: 2rem;
+    vertical-align: middle;
+}
+
+/* Sign up form */
+
+.form-field {
+    margin: .5rem 0 1rem;
+}
+
+.form-field .error {
+    display: none;
+}
+
+.form-field-text-check label,
+.form-field-date label,
+.form-field-slider label,
+.form-field-image-selector label {
+    display: block;
+    margin: .5rem 0 .25rem;
+}
+
+.form-field-text-check input[type="text"],
+.form-field-date input[type="date"] {
+    display: block;
+    width: 180px;
+}
+
+.form-field-image-selector-list {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+    justify-content: space-between;
+
+    padding: .5rem 1rem;
+    background: #f1f1f1;
+}
+
+.form-field-image-selector-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-right: 5px;
+    text-align: center;
+}
+
+.form-field-image-selector-item img {
+    width: 100%;
+    max-width: 180px;
+}
+
+.form-field-image-selector-item-other {
+    padding: .5rem 1rem;
+    background: #f1f1f1;
+}
+.form-field-image-selector-item-other label {
+    padding: 0.5rem 0;
+    border-top: 0.5px solid black;
+}
+
+.feedback {
+    border: solid 1px rgb(250, 230, 130);
+    border-radius: 3px;
+    padding: 0.5rem;
+    background: rgba(250, 230, 130, .1);
+}
