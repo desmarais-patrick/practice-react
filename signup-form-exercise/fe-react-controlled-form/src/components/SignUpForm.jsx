@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import CheckboxField from "./FormInputs/CheckboxField.jsx";
 import DateAgeField from "./FormInputs/DateAgeField.jsx";
+import WelcomeSliderField from "./FormInputs/WelcomeSliderField.jsx";
 import TextField from "./FormInputs/TextField.jsx";
 
 const SignUpForm = (props) => {
@@ -40,6 +41,13 @@ const SignUpForm = (props) => {
         });
     }
 
+    function onExcitementValueChange(newValue) {
+        setExcitement({
+            ...excitement,
+            value: newValue,
+        });
+    }
+
     return (
         <form className="form">
             <div className="form-field form-field-text-check">
@@ -63,23 +71,21 @@ const SignUpForm = (props) => {
             </div>
             <div className="form-field form-field-date">
                 <DateAgeField
-                    label="Date of birth: "
                     name="dob"
+                    label="Date of birth: "
                     initialValue={defaultAge}
-                    onDateValueChange={onDateValueChange}
+                    onValueChange={onDateValueChange}
                 />
                 {dob.feedback && <p className="feedback">{dob.feedback}</p>}
             </div>
             <div className="form-field form-field-slider">
-                <label htmlFor="excitement">Level of excitement to join this community:</label>
-                <input
-                    id="excitement"
+                <WelcomeSliderField
                     name="excitement"
-                    type="range"
-                    min="0"
-                    max="10"
-                    step="1"
-                    value="0" />
+                    label="Level of excitement to join this community: "
+                    initialValue={0}
+                    onValueChange={onExcitementValueChange}
+                    entityName={name.value}
+                />
                 {excitement.feedback && <p className="feedback">{excitement.feedback}</p>}
             </div>
             <div className="form-field form-field-image-selector">

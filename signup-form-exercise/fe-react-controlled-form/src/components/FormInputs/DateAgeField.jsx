@@ -52,7 +52,7 @@ const DateAgeField = (props) => {
                     })
                 }}
                 onBlur={event => {
-                    props.onDateValueChange(parseValues(event.target.value));
+                    props.onValueChange(parseValues(event.target.value));
                 }} />
             {approxAgeStr && <small>{approxAgeStr}</small>}
         </>
