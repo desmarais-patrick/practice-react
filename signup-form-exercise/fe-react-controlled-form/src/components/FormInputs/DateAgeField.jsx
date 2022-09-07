@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { parseDateValues, formatApproxAge } from "../../utilities/AgeUtility";
+
 const DateAgeField = (props) => {
     let defaultValue = "";
     if (props.initialValue) {
@@ -9,34 +11,10 @@ const DateAgeField = (props) => {
         defaultValue = `${year}-${month}-${day}`;
     }
 
-    const [state, setState] = useState({
-        value: defaultValue,
-    });
+    const [value, setValue] = useState(defaultValue);
 
-    function parseValues(dateValue) {
-        if (typeof dateValue === "string" &&
-            /(\d\d\d\d)-(\d\d)-(\d\d)/.test(dateValue)) {
-
-            const matches = dateValue.match(/(\d\d\d\d)-(\d\d)-(\d\d)/);
-            if (matches !== null && matches.length > 3) {
-                return [parseInt(matches[1]), parseInt(matches[2]), parseInt(matches[3])];
-            }
-        }
-
-        return null;
-    }
-    function computeApproxAge(dateValue) {
-        const dateValues = parseValues(dateValue);
-        if (dateValues === null) return null;
-
-        const today = new Date();
-        const thisYear = today.getFullYear();
-        const chosenYear = dateValues[0];
-        const approxAge = thisYear - chosenYear;
-        return `~${approxAge} years old`;
-    }
-    const approxAgeStr = computeApproxAge(state.value);
-
+    const dateValues = parseDateValues(value);
+    const approxAgeStr = dateValues === null ? false : formatApproxAge(...dateValues);
     return (
         <>
             <label htmlFor={props.name}>{props.label}</label>
@@ -44,15 +22,13 @@ const DateAgeField = (props) => {
                 id={props.name}
                 name={props.name}
                 type="date"
-                value={state.value}
+                value={value}
                 onChange={event => {
-                    setState({
-                        ...state,
-                        value: event.target.value,
-                    })
+                    setValue(event.target.value);
                 }}
                 onBlur={event => {
-                    props.onValueChange(parseValues(event.target.value));
+                    const dateValues = parseDateValues(event.target.value);
+                    props.onValueChange(dateValues);
                 }} />
             {approxAgeStr && <small>{approxAgeStr}</small>}
         </>
