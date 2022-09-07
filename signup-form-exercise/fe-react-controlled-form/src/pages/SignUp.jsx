@@ -1,6 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 
 import Link from "../components/Routing/Link.jsx";
+
+import SignUpForm from "../components/SignUpForm.jsx";
 
 const SignUp = (props) => {
     const [isSubmitted, setIsSubmitted] = useState(false);
@@ -11,8 +13,8 @@ const SignUp = (props) => {
             <h1>Sign up</h1>
             {
                 isSubmitted ?
-                <SignUpConfirm /> :
-                <SignUpForm onSubmitted={() => setIsSubmitted(true)} />
+                    <SignUpConfirm /> :
+                    <SignUpForm onSubmitted={() => setIsSubmitted(true)} />
             }
         </div>
     );
@@ -21,12 +23,6 @@ const SignUp = (props) => {
 const SignUpConfirm = (props) => {
     return (
         <Link to="/" text="Back to home" />
-    );
-};
-
-const SignUpForm = (props) => {
-    return (
-        <button onClick={props.onSubmitted}>Submit</button>
     );
 };
 
