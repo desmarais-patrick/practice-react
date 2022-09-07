@@ -11,7 +11,7 @@ const UserBadge = ({ user }) => {
         avatarImgSrc = getDefaultAvatarImgSrc();
     }
     return (
-        <div className="user-badge" style={{ visibility: "hidden" }}>
+        <div className="user-badge">
             <img className="user-badge-img" src={avatarImgSrc} title={user.preferredCity} />
             <div className="user-badge-txt">{user.name}</div>
         </div>

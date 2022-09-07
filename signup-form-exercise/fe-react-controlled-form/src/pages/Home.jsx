@@ -9,7 +9,7 @@ const Home = (props) => {
         <>
             <h1>Home</h1>
             {props.user && <UserBadge user={props.user} />}
-            <Link to="/SignUp" text="Sign up" />
+            {!props.user && <Link to="/SignUp" text="Sign up" />}
         </>
     );
 };

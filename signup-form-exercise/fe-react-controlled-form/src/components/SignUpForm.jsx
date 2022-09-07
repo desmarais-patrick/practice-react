@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import { computeApproxAge } from "../utilities/AgeUtility.js";
+import User from "../models/User.js";
 
 import CheckboxField from "./FormInputs/CheckboxField.jsx";
 import DateAgeField from "./FormInputs/DateAgeField.jsx";
@@ -64,6 +65,7 @@ const SignUpForm = (props) => {
         setForm({
             ...form,
             status: "validating",
+            feedback: false,
         });
 
         const [areErrors, areWarnings] = validate();
@@ -74,14 +76,17 @@ const SignUpForm = (props) => {
                 ...form,
                 status: "ready",
                 feedbackShownOnce: true,
+                feedback: "Please review the above information",
             });
         } else {
             setForm({
                 ...form,
                 status: "submitting",
                 feedbackShownOnce: true,
+                feedback: false,
             });
             console.log("Submission ready to send to server");
+            submit();
         }
     }
 
@@ -90,36 +95,80 @@ const SignUpForm = (props) => {
             areWarnings = false;
 
         if (typeof name.value !== "string") {
-            name.feedback = "❗️ Your name is required to sign up 😊";
+            setName({
+                ...name,
+                feedback: "❗️ Your name is required to sign up 😊",
+            });
             areErrors = true;
         } else {
             const trimmedName = name.value.trim();
-            if (trimmedName.length >= 3 &&
-                trimmedName.length <= 20) {
-
-                // No errors to add for name.
+            if (trimmedName.length >= 3 && trimmedName.length <= 20) {
+                name.feedback && setName({
+                    ...name,
+                    feedback: false,
+                });
             } else {
-                name.feedback = "❗️ Supported names can be between 2 and 20 letters 😅";
+                setName({
+                    ...name,
+                    feedback: "❗️ Supported names can be between 2 and 20 letters 😅",
+                });
                 areErrors = true;
             }
         }
 
         const approxAge = dob.value && computeApproxAge(...dob.value);
         if (!!approxAge && approxAge > 4 && approxAge < 90) {
-            // No errors to add.
+            dob.feedback && setDob({
+                ...dob,
+                feedback: false,
+            });
         } else {
-            dob.feedback = `⚠️ Are you really ${approxAge} years old?`;
+            setDob({
+                ...dob,
+                feedback: `⚠️ Are you really ${approxAge} years old?`,
+            });
             areWarnings = true;
         }
 
         if (typeof city.value === "string" && city.value.length > 0) {
-            // No errors to add.
+            city.feedback && setCity({
+                ...city,
+                feedback: false,
+            });
         } else {
-            city.feedback = "⚠️ Please can you share your preferred city, so we can personalize your environment?";
+            setCity({
+                ...city,
+                feedback: "⚠️ Please can you share your preferred city, so we can personalize your environment?",
+            });
             areWarnings = true;
         }
 
         return [areErrors, areWarnings];
+    }
+
+    function submit() {
+        const user = new User(name.value, city.value, excitement.value);
+        props.commController.signUp(user, onSubmitSuccess, onSubmitFail);
+    }
+
+    function onSubmitSuccess(user, value) {
+        console.log("Submission successful", value);
+        setForm({
+            ...form,
+            status: "submitted",
+            feedback: false,
+        });
+        props.setUser(user);
+        props.onSubmitted();
+    }
+
+    function onSubmitFail(error) {
+        console.log("Error during submission", error);
+        setForm({
+            ...form,
+            status: "ready",
+            feedback: "❗️ An error occurred while submitting the sign up information :S",
+        });
     }
 
     return (

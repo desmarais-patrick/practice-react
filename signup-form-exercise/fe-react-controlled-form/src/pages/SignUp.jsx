@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { generateWelcomeMessage } from "../utilities/WelcomeUtility.js";
+
 import Link from "../components/Routing/Link.jsx";
 
 import SignUpForm from "../components/SignUpForm.jsx";
@@ -13,16 +15,27 @@ const SignUp = (props) => {
             <h1>Sign up</h1>
             {
                 isSubmitted ?
-                    <SignUpConfirm /> :
-                    <SignUpForm onSubmitted={() => setIsSubmitted(true)} />
+                    <SignUpConfirm
+                        user={props.user}
+                    /> :
+                    <SignUpForm
+                        user={props.user}
+                        setUser={props.setUser}
+                        commController={props.commController}
+                        onSubmitted={() => setIsSubmitted(true)} />
             }
         </div>
     );
 };
 
-const SignUpConfirm = (props) => {
+const SignUpConfirm = ({ user }) => {
+    const welcomeMessage = generateWelcomeMessage(user.name, user.excitementLevel);
     return (
-        <Link to="/" text="Back to home" />
+        <>
+            <p>You&apos;re signed up!</p>
+            <p>{welcomeMessage}</p>
+            <Link to="/" text="Back to home" />
+        </>
     );
 };
 
